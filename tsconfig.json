@@ -21,7 +21,15 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "types": ["node", "cors", "express", "stremio-addon-sdk"]
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "node",
+      "cors",
+      "express",
+      "stremio-addon-sdk"
+    ]
   },
   "exclude": ["node_modules"],
   "include": ["src"]
