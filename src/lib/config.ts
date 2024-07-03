@@ -1,3 +1,5 @@
+// src/index.ts
+
 type Config = {
   /** Path to the resource. */
   path: string;
