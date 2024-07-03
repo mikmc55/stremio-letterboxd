@@ -5,7 +5,6 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "postinstall": "prisma generate",
     "dev:copy-static": "copyfiles \"static/*\" dist && mkdirp \"./static/lists\"",
     "prisma": "prisma",
     "prisma:push-db": "prisma db push",
@@ -13,7 +12,7 @@
     "start": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./dist/index.js",
     "start:all": "concurrently \"npm run start\" \"npm run astro:dev\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && npx prisma generate && npm run astro:build && copyfiles -u 2 \"./web/dist/**/*\" \"./static\"",
+    "build": "prisma generate && tsc && npx prisma generate && npm run astro:build && copyfiles -u 2 \"./web/dist/**/*\" \"./static\"",
     "astro:build": "cd ./web && npm run build",
     "astro:dev": "cd ./web && npx astro dev",
     "clean": "node clean.js"
