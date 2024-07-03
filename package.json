@@ -5,14 +5,14 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "dev:copy-static": "copyfiles \"static/*\" dist && mkdirp \"./static/lists\"",
+    "dev:copy-static": "copyfiles 'static/*' dist && mkdirp './static/lists'",
     "prisma": "prisma",
     "prisma:push-db": "prisma db push",
     "dev": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./dist/index.js",
     "start": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./dist/index.js",
-    "start:all": "concurrently \"npm run start\" \"npm run astro:dev\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "prisma generate && tsc && npx prisma generate && npm run astro:build && copyfiles -u 2 \"./web/dist/**/*\" \"./static\"",
+    "start:all": "concurrently 'npm run start' 'npm run astro:dev'",
+    "test": "echo 'Error: no test specified' && exit 1",
+    "build": "prisma generate && tsc && npx prisma generate && npm run astro:build && copyfiles -u 2 './web/dist/**/*' './static'",
     "astro:build": "cd ./web && npm run build",
     "astro:dev": "cd ./web && npx astro dev",
     "clean": "node clean.js"
