@@ -5,6 +5,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
+    "postinstall": "prisma generate",
     "dev:copy-static": "copyfiles \"static/*\" dist && mkdirp \"./static/lists\"",
     "prisma": "prisma",
     "prisma:push-db": "prisma db push",
