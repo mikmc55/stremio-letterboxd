@@ -5,7 +5,12 @@
       "src": "src/index.ts",
       "use": "@vercel/node",
       "config": {
-        "maxLambdaSize": "50mb"
+        "includeFiles": [
+          "src/**",
+          "static/**",
+          "prisma/schema.prisma",
+          ".env"
+        ]
       }
     }
   ],
@@ -14,12 +19,5 @@
       "src": "/(.*)",
       "dest": "/dist/index.js"
     }
-  ],
-  "env": {
-    "DATABASE_URL": "@sqlitecloud://ctdkbjjwsk.sqlite.cloud:8860?apikey=3gIzHb8VQ4LPboSQnpMPZNlTr1Q4HqKhhCON78gX9bI",
-    "ANOTHER_ENV_VARIABLE": "@another-env-variable"
-  },
-  "github": {
-    "silent": true
-  }
+  ]
 }
