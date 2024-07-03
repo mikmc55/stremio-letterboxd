@@ -1,13 +1,8 @@
-import { config as dotenv } from "dotenv";
-dotenv();
-
-import manifest, { type ManifestExpanded } from "./manifest.js";
-import cors from "cors";
 import express, { Request, Response, NextFunction } from "express";
+import cors from "cors";
 import { fetchFilms } from "./fetcher.js";
-import { doesLetterboxdResourceExist } from "./util.js";
+import { doesLetterboxdResourceExist, parseLetterboxdURLToID, parseConfig } from "./util.js";
 import { env } from "./env.js";
-import { parseLetterboxdURLToID, parseConfig } from "./util.js";
 import { lruCache } from "./lib/lruCache.js";
 import { replacePosters } from "./providers/letterboxd.js";
 import { logger } from "./logger.js";
@@ -21,10 +16,9 @@ const listManager = new ListManager();
 listManager.startPolling();
 
 const app = express();
-
 const logBase = logger("server");
 
-if (env.isProd || env.isProduction) {
+if (env.isProduction) {
   publishToCentral("https://letterboxd.almosteffective.com/").then(() => {
     logBase(
       `Published to stremio official repository as ${manifest.name} with ID ${manifest.id} and version ${manifest.version}`,
@@ -94,7 +88,7 @@ app.get("/:providedConfig/manifest.json", async (req: Request, res: Response) =>
   }
 
   const cloned_manifest = { ...manifest } as ManifestExpanded;
-  cloned_manifest.id = `${env.isDevelopment ? "dev-" : ""}com.github.megadrive.letterboxd-watchlist-${config.pathSafe}`;
+  cloned_manifest.id = `${env.isDev ? "dev-" : ""}com.github.megadrive.letterboxd-watchlist-${config.pathSafe}`;
   cloned_manifest.name = `Letterboxd - ${config.catalogName}`;
   cloned_manifest.description = `Provides a list of films at https://letterboxd.com${config.path} as a catalog.`;
   cloned_manifest.catalogs = [
@@ -253,7 +247,7 @@ app.get("/verify/:base64", async (req: Request, res: Response) => {
   let userConfig: VerifyConfig;
 
   try {
-    decoded = atob(base64);
+    decoded = Buffer.from(base64, 'base64').toString('utf-8');
     log({ decoded });
     userConfig = JSON.parse(decoded) as VerifyConfig;
   } catch {
@@ -371,7 +365,7 @@ app.get("/poster/:letterboxdPath/:letterboxdId", async (req: Request, res: Respo
   if (!poster) {
     return res.status(HTTP_CODES.NOT_FOUND).send();
   }
-  res.appendHeader("Referer", "https://letterboxd.com/");
+  res.setHeader("Referer", "https://letterboxd.com/");
   return res.redirect(poster.url);
 });
 
