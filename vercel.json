@@ -16,7 +16,7 @@
     }
   ],
   "env": {
-    "DATABASE_URL": "@your-database-url",
+    "DATABASE_URL": "@sqlitecloud://ctdkbjjwsk.sqlite.cloud:8860?apikey=3gIzHb8VQ4LPboSQnpMPZNlTr1Q4HqKhhCON78gX9bI",
     "ANOTHER_ENV_VARIABLE": "@another-env-variable"
   },
   "github": {
