@@ -12,7 +12,7 @@
     "start": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./src/index.ts",
     "start:all": "concurrently \"npm run start\" \"npm run astro:dev\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx prisma generate && npm run astro:build && copyfiles -u 2 \"./web/dist/**/*\" \"./static\"",
+    "build": "prisma generate && npm run astro:build && copyfiles -u 2 \"./web/dist/**/*\" \"./static\"",
     "astro:build": "cd ./web && npm run build",
     "astro:dev": "cd ./web && npx astro dev",
     "clean": "node clean.js"
