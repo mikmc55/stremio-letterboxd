@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "description": "Creates Stremio catalogs from Letterboxd URLs.",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "dist/index.js", // This points to the compiled output
   "scripts": {
     "dev:copy-static": "copyfiles \"static/*\" dist && mkdirp \"./static/lists\"",
     "prisma": "prisma",
     "prisma:push-db": "prisma db push",
-    "dev": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./src/index.ts",
-    "start": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./src/index.ts",
+    "dev": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./dist/index.js",
+    "start": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./dist/index.js",
     "start:all": "concurrently \"npm run start\" \"npm run astro:dev\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "prisma generate && npm run astro:build && copyfiles -u 2 \"./web/dist/**/*\" \"./static\"",
+    "build": "tsc && npx prisma generate && npm run astro:build && copyfiles -u 2 \"./web/dist/**/*\" \"./static\"",
     "astro:build": "cd ./web && npm run build",
     "astro:dev": "cd ./web && npx astro dev",
     "clean": "node clean.js"
