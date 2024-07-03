@@ -79,13 +79,14 @@ export const parseConfig = (str: string): Config => {
    * Expected input: %2Ffcbarcelona%2Flist%2Fmovies-everyone-should-watch-at-least-once%2F%2Cp
    * p = posters
    */
-  const decoded = decodeURIComponent(str);
+  const decoded = decodeURIComponent(convertedConfigString);
   const split = decoded.split(/\|/g);
   const [path, ...providedOpts] = split;
   const opts: {
     posters: Config["posters"];
     catalogName?: Config["catalogName"];
   } = { posters: false };
+
   if (providedOpts) {
     for (const o of providedOpts) {
       const opt = decodeURIComponent(o);
@@ -173,9 +174,8 @@ export const parseConfig = (str: string): Config => {
       reserved.first.includes(usernameOrReserved.toLowerCase())
     ) {
       isReservedType = true;
-      // TODO: Typescript error here, might need to hoist the reserved up and use an `as const`.
       // @ts-ignore
-      return usernameOrReserved;
+      return "person";
     }
 
     return "unset";
