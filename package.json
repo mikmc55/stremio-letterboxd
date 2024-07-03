@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Creates Stremio catalogs from Letterboxd URLs.",
   "type": "module",
-  "main": "dist/index.js"
+  "main": "dist/index.js",
   "scripts": {
     "dev:copy-static": "copyfiles \"static/*\" dist && mkdirp \"./static/lists\"",
     "prisma": "prisma",
