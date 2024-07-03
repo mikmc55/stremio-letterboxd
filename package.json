@@ -10,11 +10,12 @@
     "prisma:push-db": "prisma db push",
     "dev": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./dist/index.js",
     "start": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./dist/index.js",
-    "build": "npx prisma generate && npm run astro:build && copyfiles -u 2 \"./web/dist/**/*\" \"./static\"",
+    "build": "tsc && npm run dev:copy-static && npx prisma generate",
+    "start:all": "concurrently \"npm run start\" \"npm run astro:dev\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "astro:build": "cd ./web && npm run build",
     "astro:dev": "cd ./web && npx astro dev --host",
-    "clean": "node clean.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "node clean.js"
   },
   "engines": {
     "node": ">= 20.x"
