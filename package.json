@@ -10,12 +10,11 @@
     "prisma:push-db": "prisma db push",
     "dev": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./dist/index.js",
     "start": "tsc && npm run dev:copy-static && npm run prisma:push-db && node ./dist/index.js",
-    "start:all": "concurrently \"npm run start\" \"npm run astro:dev\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && npx prisma generate && npm run astro:build && copyfiles -u 2 \"./web/dist/**/*\" \"./static\"",
+    "build": "npx prisma generate && npm run astro:build && copyfiles -u 2 \"./web/dist/**/*\" \"./static\"",
     "astro:build": "cd ./web && npm run build",
-    "astro:dev": "cd ./web && npx astro dev",
-    "clean": "node clean.js"
+    "astro:dev": "cd ./web && npx astro dev --host",
+    "clean": "node clean.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
     "node": ">= 20.x"
@@ -26,9 +25,9 @@
   "devDependencies": {
     "@biomejs/biome": "1.8.1",
     "@total-typescript/ts-reset": "^0.5.1",
-    "@types/node": "^20.10.6",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/node": "^20.10.6",
     "@types/stremio-addon-sdk": "^1.6.10",
     "del": "^7.1.0",
     "prisma": "^5.15.0",
