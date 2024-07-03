@@ -10,7 +10,7 @@ import { env } from "./env.js";
 // import { parseLetterboxdURLToID } from "./util.js"; // Removed if not used
 import { lruCache } from "./lib/lruCache.js";
 import { parseConfig } from "./lib/config.js";
-import { replacePosters } from "./providers/letterboxd.js";
+// import { replacePosters } from "./providers/letterboxd.js"; // Removed if not used
 import { logger } from "./logger.js";
 import { prisma } from "./prisma.js";
 import type { StremioMeta, StremioMetaPreview } from "./consts.js";
@@ -140,7 +140,7 @@ app.get("/:providedConfig/catalog/:type/:id/:extra?", async (req, res) => {
   const parsedExtras = (() => {
     if (!extra) return undefined;
 
-    const rextras = /([A-Za-z]+)+=([A-Za-z0-9]+)/g;
+    const rextras = /([A-Za-z]+)=([A-Za-z0-9]+)/g;
     const matched = [...extra.matchAll(rextras)];
     const rv: Record<string, string> = {};
     for (const match of matched) {
@@ -163,7 +163,7 @@ app.get("/:providedConfig/catalog/:type/:id/:extra?", async (req, res) => {
     log(error);
     return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).json({ metas: [] });
   }
-  // if we have a cacched config, use it, otherwise use the provided one
+  // if we have a cached config, use it, otherwise use the provided one
   const config = parseConfig(
     cachedConfig ? cachedConfig.config : providedConfig,
   );
