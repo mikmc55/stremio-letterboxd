@@ -8,14 +8,7 @@
       }
     }
   ],
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
-    },
-    "commands": [
-      "npm install",
-      "npx prisma generate",
-      "npm run build"
-    ]
+  "env": {
+    "NODE_ENV": "production"
   }
 }
